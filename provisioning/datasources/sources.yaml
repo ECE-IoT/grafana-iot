@@ -1,0 +1,10 @@
+apiVersion: 1
+datasources:
+- accessKey: asdf
+  authType: keys
+  defaultRegion: eu-central-1
+  jsonData: null
+  name: ECE-IoT
+  secretKey: djdjd
+  secureJsonData: null
+  type: grafana-timestream-datasource
