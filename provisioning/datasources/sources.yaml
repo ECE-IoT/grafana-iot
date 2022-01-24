@@ -3,8 +3,8 @@ datasources:
   - name: ECE-IoT
     type: grafana-timestream-datasource
     jsonData:
-    authType: keys
-    defaultRegion: us-east-1
+        authType: keys
+        defaultRegion: eu-central-1
     secureJsonData:
-    accessKey: asdf
-    secretKey: asdf
+        accessKey: Access
+        secretKey: Secret

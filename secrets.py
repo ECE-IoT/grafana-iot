@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+from typing import OrderedDict
 import ruamel.yaml
 
 BASE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)))
@@ -12,10 +13,8 @@ def write_source_file(access, secret):
         open(SOURCE_FILE))
 
     try:
-        datasource = config['datasources']
-
-        datasource[0]['accessKey'] = access
-        datasource[0]['secretKey'] = secret
+        config['datasources'][0]['secureJsonData'] = {
+            'accessKey': access, 'secretKey': secret}
 
         yaml = ruamel.yaml.YAML()
         yaml.indent(mapping=ind, sequence=ind, offset=bsi)
@@ -25,6 +24,12 @@ def write_source_file(access, secret):
 
     except yaml.YAMLError as err:
         print(err)
+
+
+def replace_at_index(tup, index, value):
+    lst = list(tup)
+    lst[index] = value
+    return OrderedDict(lst)
 
 
 def gather_input():
