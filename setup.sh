@@ -31,7 +31,7 @@ function add_datasource {
     echo -e "Please add your AWS access and secret key: "
     echo -e "$HLINE"
     python3 $SECRETS_SCRIPT
-    echo -e "\n$HLINE"
+    echo -e "$HLINE"
     echo -e "Copy all essential files \n"
 
     if [ ! -f $DATASOURCE_FILE ]; then 
@@ -41,10 +41,11 @@ function add_datasource {
     echo -e "from $REPO_DATASOURCE_DIR \n"
     echo -e "to $DATASOURCE_FILE"
     sudo cp $REPO_DATASOURCE_DIR $DATASOURCE_FILE
-    echo -e "$HLINE\n"
+    echo -e "$HLINE"
     echo -e "Installing the required AWS Timestream plugin"
-    echo -e "\n$HLINE\n"
-    grafana-cli plugins install grafana-timestream-datasource
+    echo -e "$HLINE"
+    sudo grafana-cli plugins install grafana-timestream-datasource
+    echo -e "$HLINE\n"
 }
 
 function add_service {
