@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-
 import os
-import yaml
+import ruamel.yaml
 
 BASE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 SOURCE_FILE = os.path.join(BASE_PATH, "provisioning",
@@ -9,18 +8,23 @@ SOURCE_FILE = os.path.join(BASE_PATH, "provisioning",
 
 
 def write_source_file(access, secret):
-    with open(SOURCE_FILE) as file:
-        try:
-            config = yaml.safe_load(file)
+    config, ind, bsi = ruamel.yaml.util.load_yaml_guess_indent(
+        open(SOURCE_FILE))
 
-            config['datasources'][0]['accessKey'] = access
-            config['datasources'][0]['secretKey'] = secret
+    try:
+        datasource = config['datasources']
 
-            with open(SOURCE_FILE, 'w') as file:
-                yaml.dump(config, file)
+        datasource[0]['accessKey'] = access
+        datasource[0]['secretKey'] = secret
 
-        except yaml.YAMLError as err:
-            print(err)
+        yaml = ruamel.yaml.YAML()
+        yaml.indent(mapping=ind, sequence=ind, offset=bsi)
+
+        with open(SOURCE_FILE, 'w') as file:
+            yaml.dump(config, file)
+
+    except yaml.YAMLError as err:
+        print(err)
 
 
 def gather_input():
