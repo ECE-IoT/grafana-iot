@@ -42,6 +42,9 @@ function add_datasource {
     echo -e "to $DATASOURCE_FILE"
     sudo cp $REPO_DATASOURCE_DIR $DATASOURCE_FILE
     echo -e "$HLINE\n"
+    echo -e "Installing the required AWS Timestream plugin"
+    echo -e "\n$HLINE\n"
+    grafana-cli plugins install grafana-timestream-datasource
 }
 
 function add_service {
